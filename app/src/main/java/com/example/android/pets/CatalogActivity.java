@@ -26,6 +26,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.android.pets.data.PetContract;
@@ -37,8 +39,9 @@ import com.example.android.pets.data.PetDbHelper;
 public class CatalogActivity extends AppCompatActivity {
 
     private String TAG = "CatalogActivity";
-
-    /** Database helper that will provide us access to the database */
+    /**
+     * Database helper that will provide us access to the database
+     */
     private PetDbHelper mDbHelper;
 
     @Override
@@ -55,7 +58,6 @@ public class CatalogActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         // To access our database, we instantiate our subclass of SQLiteOpenHelper
         // and pass the context, which is the current activity.
@@ -78,6 +80,7 @@ public class CatalogActivity extends AppCompatActivity {
     private void insertPet() {
         // Gets the database in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
 
         // Create a ContentValues object where column names are the keys,
         // and Toto's pet attributes are the values.
@@ -141,5 +144,11 @@ public class CatalogActivity extends AppCompatActivity {
             // resources and makes it invalid.
             cursor.close();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        displayDatabaseInfo();
     }
 }
