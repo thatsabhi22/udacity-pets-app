@@ -64,4 +64,8 @@
 
     <!-- Label for dropdown menu option if the pet is female [CHAR LIMIT=20] -->
     <string name="gender_female">Female</string>
+    <string name="pet_name"><![CDATA[<pet_name>]]></string>
+    <string name="pet_breed"><![CDATA[<pet_breed>]]></string>
+    <string name="no_pets">No Pets Right Now</string>
+    <string name="unknown_breed">unknown</string>
 </resources>
