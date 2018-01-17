@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="@string/pet_name"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="#2B3D4D"/>
+        android:textColor="#2B3D4D" />
 
     <TextView
         android:id="@+id/pet_breed"
