@@ -240,8 +240,8 @@ public class PetProvider extends ContentProvider {
 
         // If 1 or more rows were updated, then notify all listeners that the data at the
         // given URI has changed
-        if(rowsUpdated != 0 ){
-            getContext().getContentResolver().notifyChange(uri,null);
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
         }
 
         // Return the number of rows updated
@@ -250,29 +250,35 @@ public class PetProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-
-        // Track the number of rows that were deleted
-        int rowsDeleted = 0;
-
         // Get writeable database
         SQLiteDatabase database = petDbHelper.getWritableDatabase();
+
+        // Track the number of rows that were deleted
+        int rowsDeleted;
 
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case PETS:
                 // Delete all rows that match the selection and selection args
                 rowsDeleted = database.delete(PetEntry.TABLE_NAME, selection, selectionArgs);
+                break;
             case PET_ID:
                 // Delete a single row given by the ID in the URI
                 selection = PetEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 rowsDeleted = database.delete(PetEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Deletion is not supported for " + uri);
         }
 
-        if(rowsDeleted != 0) {
+        // If 1 or more rows were deleted, then notify all listeners that the data at the
+        // given URI has changed
+        if (rowsDeleted != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
 
+        // Return the number of rows deleted
         return rowsDeleted;
     }
 
